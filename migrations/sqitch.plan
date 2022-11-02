@@ -1,0 +1,5 @@
+%syntax-version=1.0.0
+%project=budget-app
+%uri=https://github.com/PrietoPablo/budget-app-server
+
+db_v1 2022-10-31T11:10:46Z Pablo Prieto <priet@DESKTOP-LQGK7CU> # basic pg db with user, account, ledger, budget category, saving category and subscription tracker
