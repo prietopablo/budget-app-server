@@ -13,19 +13,19 @@ const accountDatamapper = {
 
       if (result.rowCount === 0) {
          return null;
-     }
+      }
 
-     return result.rows;
+      return result.rows;
    },
 
    async findByPK(accountId) {
-      const result = await client.query('SELECT * FROM "account" WHERE id = $2', [accountId]);
+      const result = await client.query('SELECT * FROM "account" WHERE id = $1', [accountId]);
 
       if (result.rowCount === 0) {
          return null;
-     }
+      }
 
-     return result.rows;
+      return result.rows;
    },
 
    async update(inputData, accountId) {
@@ -33,14 +33,14 @@ const accountDatamapper = {
       const values = Object.values(inputData);
 
       const savedUser = await client.query(
-         `UPDATE "user" 
+         `UPDATE "account" 
          SET ${fields}, "updated_at" = NOW()
          WHERE id = $${fields.length + 1} 
          RETURNING *`,
          [...values, accountId],
          );
 
-         return savedUser.rows[0];
+      return savedUser.rows[0];
    },
 
    async delete(accountId) {

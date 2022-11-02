@@ -24,7 +24,7 @@ const userController = {
 
    async getOne(req, res) {
       try {
-         const user = await userDatamapper.findByPk(req.params.id);
+         const user = await userDatamapper.findByPk(req.params.userId);
 
          if (!user) {
             return res.status(404).json({ errorMessage: 'user not found' });
@@ -38,7 +38,7 @@ const userController = {
 
    async update(req, res) {
       try {
-         const user = await userDatamapper.findByPk(req.params.id);
+         const user = await userDatamapper.findByPk(req.params.userId);
 
          if (!user) {
             return res.status(404).json({ errorMessage: 'user not found' });
@@ -50,7 +50,7 @@ const userController = {
                   return res.status(400).json({ errorMessage: 'Another user account use this email' });
                }
             }
-            const updatedUser = await userDatamapper.update(req.body, req.params.id);
+            const updatedUser = await userDatamapper.update(req.body, req.params.userId);
             return res.status(200).json(updatedUser);
       } catch (err) {
          return res.json({ errorType: err.message });
@@ -59,13 +59,13 @@ const userController = {
 
    async delete(req, res) {
       try {
-          const user = await userDatamapper.findByPk(req.params.id);
+          const user = await userDatamapper.findByPk(req.params.userId);
 
           if (!user) {
             return res.status(404).json({ errorMessage: 'user not found' });
           }
 
-          await userDatamapper.delete(req.params.id);
+          await userDatamapper.delete(req.params.userId);
           return res.json({ message: 'User deleted' });
       } catch (err) {
           return res.json({ errorType: err.message });
