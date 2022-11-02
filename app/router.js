@@ -1,13 +1,11 @@
 const express = require('express');
-const { userController } = require('./controllers/userController');
+const userController = require('./controllers/userController');
 
 const router = express.Router();
 
-
-
 // Unconnected/unregistered Visitor
 // Homepage
-router.get('/', (_,res) => {
+router.get('/', (_, res) => {
    res.send('homepage');
 });
 
@@ -16,7 +14,7 @@ router.post('/signup', userController.create);
 
 //
 router.post('/login', () => {
-   
+
 });
 
 // registered Visitor
@@ -26,6 +24,5 @@ router
    .get(userController.getOne)
    .patch(userController.update)
    .delete(userController.delete);
-
 
 module.exports = router;

@@ -12,6 +12,6 @@
     },
     "rules": {
         "linebreak-style": "off",
-        "indent": ["errors", 3]
+        "indent": 0
     }
 }
