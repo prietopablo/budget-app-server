@@ -19,9 +19,9 @@ const userDatamapper = {
    },
 
    async insert(username, email, hashedpassword) {
-      const newUser = await client.query('INSERT INTO "user" ("username", "email", "password") VALUES ($1, $2, $3)', [username, email, hashedpassword]);
+      const result = await client.query('INSERT INTO "user" ("username", "email", "password") VALUES ($1, $2, $3)', [username, email, hashedpassword]);
 
-      return newUser.rows[0];
+      return result.rows[0];
    },
 
    async delete(userId) {
@@ -33,8 +33,6 @@ const userDatamapper = {
   async update(inputData, userId) {
       const fields = Object.keys(inputData).map((prop, index) => `"${prop}" = $${index + 1}`);
       const values = Object.values(inputData);
-
-      // const date = Date.now();
 
       const savedUser = await client.query(
          `UPDATE "user" 
