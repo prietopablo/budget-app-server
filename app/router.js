@@ -26,7 +26,9 @@ router
    .patch(userController.update)
    .delete(userController.delete);
 
-// At the moment user can just monitor their accounts but will be changed to some sort of dashboard
+// At the moment user can just monitor their accounts
+//  but will be changed to some sort of a dashboard
+// Account CRUD
 router
    .route('/user/:userId/accounts')
    .get(accountController.getAllByUserId)

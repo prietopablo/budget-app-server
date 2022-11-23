@@ -2,6 +2,6 @@
 
 BEGIN;
 
-DROP TABLE IF EXISTS "user", "account", "ledger", "transfer", "saving_target", "subcription_tracker";
+DROP TABLE IF EXISTS "user", "account", "ledger", "internal_transfer", "saving_target", "budget_type", "subcription_tracker", "transaction_category";
 
 COMMIT;

@@ -2,14 +2,25 @@ const client = require('./client');
 
 const accountDatamapper = {
 
-   async insert(name, balance, type, userId) {
-      const result = await client.query('INSERT INTO "account" ("name", "balance", "type", "user_id") VALUES ($1, $2, $3, $4)', [name, balance, type, userId]);
+   async insert(name, type, userId) {
+      const result = await client.query('INSERT INTO "account" ("name", "type", "user_id") VALUES ($1, $2, $3)', [name, type, userId]);
 
       return result.rows[0];
    },
 
    async findAllByUserId(userId) {
       const result = await client.query('SELECT * FROM "account" WHERE user_id = $1', [userId]);
+
+      if (result.rowCount === 0) {
+         return null;
+      }
+
+      return result.rows;
+   },
+
+   // Maybe I will use this method in the future
+   async findByUserIdAndPK(userId, accountId) {
+      const result = await client.query('SELECT * FROM "account" WHERE id = $1 AND user_id = $2', [accountId, userId]);
 
       if (result.rowCount === 0) {
          return null;

@@ -1,29 +1,23 @@
-const ledgerDatamapper = require('../models/ledgerDatamapper');
+const accountDatamapper = require('../models/accountDatamapper');
 
-const ledgerController = {
+const accountController = {
 
    async create(req, res) {
       try {
-         await ledgerDatamapper
-         .insert(
-               req.body.name,
-               req.body.description,
-               req.body.transactionType,
-               req.params.amount,
-               req.params.accountId,
-            );
+         await accountDatamapper
+         .insert(req.body.name, req.body.type, req.params.userId);
 
-         return res.status(200).json('New ledger created');
+         return res.status(200).json('New account created');
       } catch (err) {
          return res.json({ errorMessage: err.message });
       }
    },
 
-   async getAllByAccountId(req, res) {
+   async getAllByUserId(req, res) {
       try {
-         const ledgerList = await ledgerDatamapper.getAllByAccountId(req.params.accountId);
+         const accountList = await accountDatamapper.findAllByUserId(req.params.userId);
 
-         return res.json({ ledgerList });
+         return res.json({ accountList });
       } catch (err) {
          return res.json({ errorType: err.message });
       }
@@ -31,13 +25,13 @@ const ledgerController = {
 
    async getOne(req, res) {
       try {
-         const ledger = await ledgerDatamapper.findByPK(req.params.ledgerId);
+         const account = await accountDatamapper.findByPK(req.params.accountId);
 
-         if (!ledger) {
-            return res.status(404).json({ errorMessage: 'ledger not found' });
+         if (!account) {
+            return res.status(404).json({ errorMessage: 'account not found' });
          }
 
-            return res.status(200).json(ledger);
+            return res.status(200).json(account);
       } catch (err) {
          return res.json({ errorType: err.message });
       }
@@ -45,14 +39,14 @@ const ledgerController = {
 
    async update(req, res) {
       try {
-         const ledger = await ledgerDatamapper.findByPK(req.params.ledgerId);
+         const account = await accountDatamapper.findByPK(req.params.accountId);
 
-         if (!ledger) {
-            return res.status(404).json({ errorMessage: 'ledger not found' });
+         if (!account) {
+            return res.status(404).json({ errorMessage: 'account not found' });
          }
 
-         const updatedledger = await ledgerDatamapper.update(req.body, req.params.ledgerId);
-         return res.status(200).json(updatedledger);
+         const updatedAccount = await accountDatamapper.update(req.body, req.params.accountId);
+         return res.status(200).json(updatedAccount);
       } catch (err) {
          return res.json({ errorType: err.message });
       }
@@ -60,18 +54,18 @@ const ledgerController = {
 
    async delete(req, res) {
       try {
-         const ledger = await ledgerDatamapper.findByPK(req.params.ledgerId);
+         const account = await accountDatamapper.findByPK(req.params.accountId);
 
-          if (!ledger) {
-            return res.status(404).json({ errorMessage: 'ledger not found' });
+          if (!account) {
+            return res.status(404).json({ errorMessage: 'account not found' });
           }
 
-          await ledgerDatamapper.delete(req.params.ledgerId);
-          return res.status(200).json({ message: 'ledger deleted' });
+          await accountDatamapper.delete(req.params.accountId);
+          return res.status(200).json({ message: 'account deleted' });
       } catch (err) {
           return res.json({ errorType: err.message });
       }
   },
 };
 
-module.exports = ledgerController;
+module.exports = accountController;

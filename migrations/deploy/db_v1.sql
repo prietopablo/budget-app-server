@@ -15,7 +15,6 @@ CREATE TABLE IF NOT EXISTS "user" (
 CREATE TABLE IF NOT EXISTS "account" (
    "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
    "name" TEXT NOT NULL UNIQUE,
-   "balance" NUMERIC(20,4) NOT NULL,
    "type" TEXT NOT NULL DEFAULT 'checking',
    "created_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
    "updated_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
@@ -31,7 +30,7 @@ CREATE TABLE IF NOT EXISTS "ledger" (
    "updated_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
 );
 
-CREATE TABLE IF NOT EXISTS "transfer" (
+CREATE TABLE IF NOT EXISTS "internal_transfer" (
    "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
    "amount" NUMERIC(20,4) NOT NULL,
    "created_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
@@ -48,7 +47,25 @@ CREATE TABLE IF NOT EXISTS "saving_target" (
    "updated_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
 );
 
+CREATE TABLE IF NOT EXISTS "budget_type" (
+   "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+   "name" TEXT NOT NULL,
+   "description" TEXT,
+   "budget_allowed" NUMERIC(20,4) NOT NULL,
+   "created_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+   "updated_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
+);
+
 CREATE TABLE IF NOT EXISTS "subcription_tracker" (
+   "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+   "name" TEXT NOT NULL,
+   "description" TEXT,
+   "amount" NUMERIC(20,4) NOT NULL,
+   "created_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+   "updated_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS "transaction_category" (
    "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
    "name" TEXT NOT NULL,
    "description" TEXT,
@@ -63,13 +80,19 @@ ALTER TABLE "account"
 ALTER TABLE "ledger"
    ADD COLUMN "account_id" INT NOT NULL REFERENCES "account" (id);
 
-ALTER TABLE "transfer"
+ALTER TABLE "ledger"
+   ADD COLUMN "transaction_category_id" INT NOT NULL REFERENCES "transaction_category" (id);
+
+ALTER TABLE "internal_transfer"
    ADD COLUMN "account_from_id" INT NOT NULL REFERENCES "account" (id);
-ALTER TABLE "transfer"
+ALTER TABLE "internal_transfer"
    ADD COLUMN "account_to_id" INT NOT NULL REFERENCES "account" (id);
 
 ALTER TABLE "saving_target"
    ADD COLUMN "recipient_account_id" INT NOT NULL REFERENCES "account" (id);
+
+ALTER TABLE "budget_type"
+   ADD COLUMN "user_id" INT NOT NULL REFERENCES "user" (id);
 
 ALTER TABLE "subcription_tracker"
    ADD COLUMN "subscription_account_id" INT NOT NULL REFERENCES "account" (id);
