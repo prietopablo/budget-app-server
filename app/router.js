@@ -1,6 +1,7 @@
 const express = require('express');
 const userController = require('./controllers/userController');
 const accountController = require('./controllers/accountController');
+const transactionController = require('./controllers/transactionController');
 
 const router = express.Router();
 
@@ -39,5 +40,17 @@ router
    .get(accountController.getOne)
    .patch(accountController.update)
    .delete(accountController.delete);
+
+// Transaction CRUD
+router
+   .route('/user/:userId/account/:accountId/transactions')
+   .get(transactionController.getAllByAccountId)
+   .post(transactionController.create);
+
+   router
+   .route('/user/:userId/account/:accountId/transaction/:transactionId')
+   .get(transactionController.getOne)
+   .patch(transactionController.update)
+   .delete(transactionController.delete);
 
 module.exports = router;

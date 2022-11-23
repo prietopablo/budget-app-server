@@ -15,12 +15,12 @@ CREATE TABLE IF NOT EXISTS "user" (
 CREATE TABLE IF NOT EXISTS "account" (
    "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
    "name" TEXT NOT NULL UNIQUE,
-   "type" TEXT NOT NULL DEFAULT 'checking',
+   "type" TEXT NOT NULL,
    "created_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
    "updated_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
 );
 
-CREATE TABLE IF NOT EXISTS "ledger" (
+CREATE TABLE IF NOT EXISTS "transaction" (
    "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
    "name" TEXT NOT NULL,
    "description" TEXT,
@@ -77,11 +77,11 @@ CREATE TABLE IF NOT EXISTS "transaction_category" (
 ALTER TABLE "account"
    ADD COLUMN "user_id" INT NOT NULL REFERENCES "user" (id);
 
-ALTER TABLE "ledger"
+ALTER TABLE "transaction"
    ADD COLUMN "account_id" INT NOT NULL REFERENCES "account" (id);
 
-ALTER TABLE "ledger"
-   ADD COLUMN "transaction_category_id" INT NOT NULL REFERENCES "transaction_category" (id);
+ALTER TABLE "transaction"
+   ADD COLUMN "transaction_category_id" INT REFERENCES "transaction_category" (id);
 
 ALTER TABLE "internal_transfer"
    ADD COLUMN "account_from_id" INT NOT NULL REFERENCES "account" (id);
