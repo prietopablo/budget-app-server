@@ -2,6 +2,7 @@ const express = require('express');
 const userController = require('./controllers/userController');
 const accountController = require('./controllers/accountController');
 const transactionController = require('./controllers/transactionController');
+const internalTransferController = require('./controllers/internalTransferController');
 
 const router = express.Router();
 
@@ -47,10 +48,21 @@ router
    .get(transactionController.getAllByAccountId)
    .post(transactionController.create);
 
-   router
+router
    .route('/user/:userId/account/:accountId/transaction/:transactionId')
    .get(transactionController.getOne)
    .patch(transactionController.update)
    .delete(transactionController.delete);
 
+// Internal transfert CRUD
+router
+   .route('/user/:userId/internalTransfers')
+   .get(internalTransferController.getAllByUserId)
+   .post(internalTransferController.create);
+
+router
+   .route('/user/:userId/internalTransfer/:internalTransferId')
+   .get(internalTransferController.getOne)
+   .patch(internalTransferController.update)
+   .delete(internalTransferController.delete);
 module.exports = router;

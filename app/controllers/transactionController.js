@@ -24,7 +24,7 @@ const transactionController = {
          const transactionList = await transactionDatamapper
                                  .findAllByAccountId(req.params.accountId);
 
-         return res.json({ transactionList });
+         return res.status(200).json({ transactionList });
       } catch (err) {
          return res.json({ errorType: err.message });
       }
@@ -47,16 +47,16 @@ const transactionController = {
 
    async update(req, res) {
       try {
-         const ledger = await transactionDatamapper.findByPK(req.params.transactionId);
+         const transaction = await transactionDatamapper.findByPK(req.params.transactionId);
 
-         if (!ledger) {
+         if (!transaction) {
             return res.status(404).json({ errorMessage: 'transaction not found' });
          }
 
-         const updatedledger = await transactionDatamapper
+         const updatedtransaction = await transactionDatamapper
                               .update(req.body, req.params.transactionId);
 
-         return res.status(200).json(updatedledger);
+         return res.status(200).json(updatedtransaction);
       } catch (err) {
          return res.json({ errorType: err.message });
       }
@@ -64,9 +64,9 @@ const transactionController = {
 
    async delete(req, res) {
       try {
-         const ledger = await transactionDatamapper.findByPK(req.params.transactionId);
+         const transaction = await transactionDatamapper.findByPK(req.params.transactionId);
 
-          if (!ledger) {
+          if (!transaction) {
             return res.status(404).json({ errorMessage: 'transaction not found' });
           }
 
