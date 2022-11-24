@@ -82,9 +82,12 @@ ALTER TABLE "transaction"
 
 ALTER TABLE "transaction"
    ADD COLUMN "transaction_category_id" INT REFERENCES "transaction_category" (id);
+ALTER TABLE "internal_transfer"
+   ADD COLUMN "user_id" INT NOT NULL REFERENCES "user" (id);
 
 ALTER TABLE "internal_transfer"
    ADD COLUMN "account_from_id" INT NOT NULL REFERENCES "account" (id);
+   
 ALTER TABLE "internal_transfer"
    ADD COLUMN "account_to_id" INT NOT NULL REFERENCES "account" (id);
 
