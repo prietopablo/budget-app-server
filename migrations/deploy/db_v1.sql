@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS "budget_type" (
    "updated_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
 );
 
-CREATE TABLE IF NOT EXISTS "subcription_tracker" (
+CREATE TABLE IF NOT EXISTS "subcription" (
    "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
    "name" TEXT NOT NULL,
    "description" TEXT,
@@ -100,7 +100,10 @@ ALTER TABLE "saving_target"
 ALTER TABLE "budget_type"
    ADD COLUMN "user_id" INT NOT NULL REFERENCES "user" (id);
 
-ALTER TABLE "subcription_tracker"
-   ADD COLUMN "subscription_account_id" INT NOT NULL REFERENCES "account" (id);
+ALTER TABLE "subcription"
+   ADD COLUMN "user_id" INT NOT NULL REFERENCES "user" (id);
+
+ALTER TABLE "subcription"
+   ADD COLUMN "account_id" INT NOT NULL REFERENCES "account" (id);
 
 COMMIT;

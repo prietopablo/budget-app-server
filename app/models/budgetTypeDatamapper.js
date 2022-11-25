@@ -3,7 +3,7 @@ const client = require('./client');
 const budgetTypeDatamapper = {
 
    async insert(name, description, budgetAllowed, userId) {
-      const result = await client.query('INSERT INTO "budget_type" (name, description, budget_allowed, user_id) VALUES ($1, $2, $3)', [name, description, budgetAllowed, userId]);
+      const result = await client.query('INSERT INTO "budget_type" (name, description, budget_allowed, user_id) VALUES ($1, $2, $3, $4)', [name, description, budgetAllowed, userId]);
 
       return result.rows[0];
    },

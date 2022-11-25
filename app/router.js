@@ -96,4 +96,20 @@ router
    .patch(budgetTypeController.update)
    .delete(budgetTypeController.delete);
 
+// Subscription CRUD
+router
+   .route('/user/:userId/subscriptions')
+   .get(budgetTypeController.getAllByUserId);
+
+router
+   .route('/user/:userId/account/:accountId/subscriptions')
+   .get(budgetTypeController.getAllByAccountId)
+   .post(budgetTypeController.create);
+
+router
+   .route('/user/:userId/subscription/:subscriptionId')
+   .get(budgetTypeController.getOne)
+   .patch(budgetTypeController.update)
+   .delete(budgetTypeController.delete);
+
 module.exports = router;

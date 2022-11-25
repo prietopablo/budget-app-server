@@ -1,15 +1,15 @@
-const savingTargetDatamapper = require('../models/savingTargetDatamapper');
+const subscriptionDatamapper = require('../models/subscriptionDatamapper');
 
-const savingTargetController = {
+const subscriptionController = {
 
    async create(req, res) {
       try {
-         await savingTargetDatamapper
+         await subscriptionDatamapper
          .insert(
                req.body.name,
                req.body.description,
-               req.body.amountSaved,
-               req.body.target,
+               req.body.amount,
+               req.params.userId,
                req.params.accountId,
             );
 
@@ -21,10 +21,10 @@ const savingTargetController = {
 
    async getAllByUserId(req, res) {
       try {
-         const savingTargetList = await savingTargetDatamapper
+         const subscriptionList = await subscriptionDatamapper
                                       .findAllByUserId(req.params.UserId);
 
-         return res.status(200).json({ savingTargetList });
+         return res.status(200).json({ subscriptionList });
       } catch (err) {
          return res.json({ errorType: err.message });
       }
@@ -32,10 +32,10 @@ const savingTargetController = {
 
    async getAllByAccountId(req, res) {
       try {
-         const savingTargetList = await savingTargetDatamapper
+         const subscriptionList = await subscriptionDatamapper
                                       .findAllByAccountId(req.params.AccountId);
 
-         return res.status(200).json({ savingTargetList });
+         return res.status(200).json({ subscriptionList });
       } catch (err) {
          return res.json({ errorType: err.message });
       }
@@ -43,14 +43,14 @@ const savingTargetController = {
 
    async getOne(req, res) {
       try {
-         const savingTarget = await savingTargetDatamapper
+         const subscription = await subscriptionDatamapper
                               .findByPK(req.params.savingTargetId);
 
-         if (!savingTarget) {
+         if (!subscription) {
             return res.status(404).json({ errorMessage: 'saving target not found' });
          }
 
-            return res.status(200).json(savingTarget);
+            return res.status(200).json(subscription);
       } catch (err) {
          return res.json({ errorType: err.message });
       }
@@ -58,17 +58,17 @@ const savingTargetController = {
 
    async update(req, res) {
       try {
-         const savingTarget = await savingTargetDatamapper
+         const subscription = await subscriptionDatamapper
                               .findByPK(req.params.savingTargetId);
 
-         if (!savingTarget) {
+         if (!subscription) {
             return res.status(404).json({ errorMessage: 'internal transfer not found' });
          }
 
-         const updatedSavingTarget = await savingTargetDatamapper
+         const updatedSubscription = await subscriptionDatamapper
                                      .update(req.body, req.params.savingTargetId);
 
-         return res.status(200).json(updatedSavingTarget);
+         return res.status(200).json(updatedSubscription);
       } catch (err) {
          return res.json({ errorType: err.message });
       }
@@ -76,14 +76,14 @@ const savingTargetController = {
 
    async delete(req, res) {
       try {
-         const savingTarget = await savingTargetDatamapper
+         const subscription = await subscriptionDatamapper
                               .findByPK(req.params.savingTargetId);
 
-          if (!savingTarget) {
+          if (!subscription) {
             return res.status(404).json({ errorMessage: 'internal transfer not found' });
           }
 
-          await savingTargetDatamapper.delete(req.params.savingTargetId);
+          await subscriptionDatamapper.delete(req.params.savingTargetId);
           return res.status(200).json({ message: 'internal transfer deleted' });
       } catch (err) {
           return res.json({ errorType: err.message });
@@ -91,4 +91,4 @@ const savingTargetController = {
   },
 };
 
-module.exports = savingTargetController;
+module.exports = subscriptionController;
