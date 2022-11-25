@@ -3,6 +3,8 @@ const userController = require('./controllers/userController');
 const accountController = require('./controllers/accountController');
 const transactionController = require('./controllers/transactionController');
 const internalTransferController = require('./controllers/internalTransferController');
+const savingTargetController = require('./controllers/savingTargetController');
+const budgetTypeController = require('./controllers/budgetTypeController');
 
 const router = express.Router();
 
@@ -65,5 +67,33 @@ router
    .get(internalTransferController.getOne)
    .patch(internalTransferController.update)
    .delete(internalTransferController.delete);
+
+// Saving target CRUD
+router
+   .route('/user/:userId/savingTargets')
+   .get(savingTargetController.getAllByUserId);
+
+router
+   .route('/user/:userId/account/:accountId/savingTargets')
+   .get(savingTargetController.getAllByAccountId)
+   .post(savingTargetController.create);
+
+router
+   .route('/user/:userId/account/:accountId/savingTarget/:savingTargetId')
+   .get(savingTargetController.getOne)
+   .patch(savingTargetController.update)
+   .delete(savingTargetController.delete);
+
+// Budget type CRUD
+router
+   .route('/user/:userId/budgetTypes')
+   .get(budgetTypeController.getAllByUserId)
+   .post(budgetTypeController.create);
+
+router
+   .route('/user/:userId/budgetType/:budgetTypeId')
+   .get(budgetTypeController.getOne)
+   .patch(budgetTypeController.update)
+   .delete(budgetTypeController.delete);
 
 module.exports = router;

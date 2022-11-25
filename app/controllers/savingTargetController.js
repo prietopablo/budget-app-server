@@ -10,6 +10,7 @@ const savingTargetController = {
                req.body.description,
                req.body.amountSaved,
                req.body.target,
+               req.params.accountId,
             );
 
          return res.status(200).json('New saving target created');
@@ -21,7 +22,18 @@ const savingTargetController = {
    async getAllByUserId(req, res) {
       try {
          const internalTransferList = await savingTargetDatamapper
-                                       .findAllByUserId(req.params.UserId);
+                                      .findAllByUserId(req.params.UserId);
+
+         return res.status(200).json({ internalTransferList });
+      } catch (err) {
+         return res.json({ errorType: err.message });
+      }
+   },
+
+   async getAllByAccountId(req, res) {
+      try {
+         const internalTransferList = await savingTargetDatamapper
+                                      .findAllByAccountId(req.params.AccountId);
 
          return res.status(200).json({ internalTransferList });
       } catch (err) {
@@ -47,16 +59,16 @@ const savingTargetController = {
    async update(req, res) {
       try {
          const savingTarget = await savingTargetDatamapper
-                                    .findByPK(req.params.savingTargetId);
+                              .findByPK(req.params.savingTargetId);
 
          if (!savingTarget) {
             return res.status(404).json({ errorMessage: 'internal transfer not found' });
          }
 
-         const updatedsavingTarget = await savingTargetDatamapper
-                              .update(req.body, req.params.savingTargetId);
+         const updatedSavingTarget = await savingTargetDatamapper
+                                     .update(req.body, req.params.savingTargetId);
 
-         return res.status(200).json(updatedsavingTarget);
+         return res.status(200).json(updatedSavingTarget);
       } catch (err) {
          return res.json({ errorType: err.message });
       }
@@ -65,7 +77,7 @@ const savingTargetController = {
    async delete(req, res) {
       try {
          const savingTarget = await savingTargetDatamapper
-                                    .findByPK(req.params.savingTargetId);
+                              .findByPK(req.params.savingTargetId);
 
           if (!savingTarget) {
             return res.status(404).json({ errorMessage: 'internal transfer not found' });

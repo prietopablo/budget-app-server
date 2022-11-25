@@ -94,6 +94,9 @@ ALTER TABLE "internal_transfer"
 ALTER TABLE "saving_target"
    ADD COLUMN "recipient_account_id" INT NOT NULL REFERENCES "account" (id);
 
+ALTER TABLE "saving_target"
+   ADD COLUMN "user_id" INT NOT NULL REFERENCES "user" (id);
+
 ALTER TABLE "budget_type"
    ADD COLUMN "user_id" INT NOT NULL REFERENCES "user" (id);
 

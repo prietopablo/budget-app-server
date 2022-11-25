@@ -2,14 +2,24 @@ const client = require('./client');
 
 const savingTargetDatamapper = {
 
-   async insert(name, description, amountSaved, target) {
-      const result = await client.query('INSERT INTO saving_target (name, description, amountSaved, target) VALUES ($1, $2, $3)', [name, description, amountSaved, target]);
+   async insert(name, description, amountSaved, target, recipientTargetId) {
+      const result = await client.query('INSERT INTO saving_target (name, description, amountSaved, target, recipient_account_id) VALUES ($1, $2, $3, $4, $5)', [name, description, amountSaved, target, recipientTargetId]);
 
       return result.rows[0];
    },
 
    async findAllByUserId(userId) {
       const result = await client.query('SELECT * FROM saving_target WHERE user_id = $1', [userId]);
+
+      if (result.rowCount === 0) {
+         return null;
+      }
+
+      return result.rows;
+   },
+
+   async findAllByAccountId(AccountId) {
+      const result = await client.query('SELECT * FROM saving_target WHERE user_id = $1', [AccountId]);
 
       if (result.rowCount === 0) {
          return null;
