@@ -11,6 +11,7 @@ const savingTargetController = {
                req.body.amountSaved,
                req.body.target,
                req.params.accountId,
+               req.params.userId,
             );
 
          return res.status(200).json('New saving target created');
@@ -22,7 +23,7 @@ const savingTargetController = {
    async getAllByUserId(req, res) {
       try {
          const savingTargetList = await savingTargetDatamapper
-                                      .findAllByUserId(req.params.UserId);
+                                      .findAllByUserId(req.params.userId);
 
          return res.status(200).json({ savingTargetList });
       } catch (err) {
@@ -33,7 +34,7 @@ const savingTargetController = {
    async getAllByAccountId(req, res) {
       try {
          const savingTargetList = await savingTargetDatamapper
-                                      .findAllByAccountId(req.params.AccountId);
+                                      .findAllByAccountId(req.params.accountId);
 
          return res.status(200).json({ savingTargetList });
       } catch (err) {
@@ -76,6 +77,7 @@ const savingTargetController = {
 
    async delete(req, res) {
       try {
+         console.log('req.params.savingTargetId', req.params.savingTargetId);
          const savingTarget = await savingTargetDatamapper
                               .findByPK(req.params.savingTargetId);
 
@@ -84,7 +86,7 @@ const savingTargetController = {
           }
 
           await savingTargetDatamapper.delete(req.params.savingTargetId);
-          return res.status(200).json({ message: 'saving target not found' });
+          return res.status(200).json({ message: 'saving target deleted' });
       } catch (err) {
           return res.json({ errorType: err.message });
       }

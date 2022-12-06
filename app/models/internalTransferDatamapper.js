@@ -3,7 +3,6 @@ const client = require('./client');
 const internalTransferDatamapper = {
 
    async insert(amount, userId, accountFromId, accountToId) {
-      console.log('[amount, userId, accountFromId, accountToId]', [amount, userId, accountFromId, accountToId]);
       const result = await client.query(
       'INSERT INTO internal_transfer (amount, user_id, account_from_id, account_to_id) VALUES ($1, $2, $3, $4)',
       [amount, userId, accountFromId, accountToId],

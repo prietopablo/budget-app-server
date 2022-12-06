@@ -2,8 +2,8 @@ const client = require('./client');
 
 const savingTargetDatamapper = {
 
-   async insert(name, description, amountSaved, target, recipientTargetId) {
-      const result = await client.query('INSERT INTO saving_target (name, description, amountSaved, target, recipient_account_id) VALUES ($1, $2, $3, $4, $5)', [name, description, amountSaved, target, recipientTargetId]);
+   async insert(name, description, amountSaved, target, recipientTargetId, userId) {
+      const result = await client.query('INSERT INTO saving_target (name, description, amount_saved, target, recipient_account_id, user_id) VALUES ($1, $2, $3, $4, $5, $6)', [name, description, amountSaved, target, recipientTargetId, userId]);
 
       return result.rows[0];
    },
