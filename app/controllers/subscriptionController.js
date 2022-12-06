@@ -13,7 +13,7 @@ const subscriptionController = {
                req.params.accountId,
             );
 
-         return res.status(200).json('New saving target created');
+         return res.status(200).json('New subscription created');
       } catch (err) {
          return res.json({ errorMessage: err.message });
       }
@@ -47,7 +47,7 @@ const subscriptionController = {
                               .findByPK(req.params.savingTargetId);
 
          if (!subscription) {
-            return res.status(404).json({ errorMessage: 'saving target not found' });
+            return res.status(404).json({ errorMessage: 'subscription not found' });
          }
 
             return res.status(200).json(subscription);
@@ -62,7 +62,7 @@ const subscriptionController = {
                               .findByPK(req.params.savingTargetId);
 
          if (!subscription) {
-            return res.status(404).json({ errorMessage: 'internal transfer not found' });
+            return res.status(404).json({ errorMessage: 'subscription not found' });
          }
 
          const updatedSubscription = await subscriptionDatamapper
@@ -80,11 +80,11 @@ const subscriptionController = {
                               .findByPK(req.params.savingTargetId);
 
           if (!subscription) {
-            return res.status(404).json({ errorMessage: 'internal transfer not found' });
+            return res.status(404).json({ errorMessage: 'subscription not found' });
           }
 
           await subscriptionDatamapper.delete(req.params.savingTargetId);
-          return res.status(200).json({ message: 'internal transfer deleted' });
+          return res.status(200).json({ message: 'subscription deleted' });
       } catch (err) {
           return res.json({ errorType: err.message });
       }

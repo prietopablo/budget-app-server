@@ -44,14 +44,14 @@ const userController = {
             return res.status(404).json({ errorMessage: 'user not found' });
          }
 
-            if (req.body.email) {
-               const existingUser = await userDatamapper.findByEmail(req.body.email);
-               if (existingUser) {
-                  return res.status(400).json({ errorMessage: 'Another user account use this email' });
-               }
+         if (req.body.email) {
+            const existingUser = await userDatamapper.findByEmail(req.body.email);
+            if (existingUser) {
+               return res.status(400).json({ errorMessage: 'Another user account use this email' });
             }
-            const updatedUser = await userDatamapper.update(req.body, req.params.userId);
-            return res.status(200).json(updatedUser);
+         }
+         const updatedUser = await userDatamapper.update(req.body, req.params.userId);
+         return res.status(200).json(updatedUser);
       } catch (err) {
          return res.json({ errorType: err.message });
       }

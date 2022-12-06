@@ -32,7 +32,6 @@ const transactionController = {
 
    async getOne(req, res) {
       try {
-         console.log(req.params.transactionId);
          const transaction = await transactionDatamapper.findByPK(req.params.transactionId);
 
          if (!transaction) {

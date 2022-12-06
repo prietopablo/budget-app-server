@@ -33,7 +33,7 @@ const savingTargetController = {
          const budgetType = await budgetTypeDatamapper.findByPK(req.params.budgetTypeId);
 
          if (!budgetType) {
-            return res.status(404).json({ errorMessage: 'saving target not found' });
+            return res.status(404).json({ errorMessage: 'budget type not found' });
          }
 
             return res.status(200).json(budgetType);
@@ -47,7 +47,7 @@ const savingTargetController = {
          const budgetType = await budgetTypeDatamapper.findByPK(req.params.budgetTypeId);
 
          if (!budgetType) {
-            return res.status(404).json({ errorMessage: 'internal transfer not found' });
+            return res.status(404).json({ errorMessage: 'budget type not found' });
          }
 
          const updatedbudgetType = await budgetTypeDatamapper
@@ -64,11 +64,11 @@ const savingTargetController = {
          const budgetType = await budgetTypeDatamapper.findByPK(req.params.budgetTypeId);
 
           if (!budgetType) {
-            return res.status(404).json({ errorMessage: 'internal transfer not found' });
+            return res.status(404).json({ errorMessage: 'budget type not found' });
           }
 
           await budgetTypeDatamapper.delete(req.params.budgetTypeId);
-          return res.status(200).json({ message: 'internal transfer deleted' });
+          return res.status(200).json({ message: 'budget type deleted' });
       } catch (err) {
           return res.json({ errorType: err.message });
       }

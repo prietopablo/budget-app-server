@@ -69,7 +69,6 @@ CREATE TABLE IF NOT EXISTS "transaction_category" (
    "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
    "name" TEXT NOT NULL,
    "description" TEXT,
-   "amount" NUMERIC(20,4) NOT NULL,
    "created_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
    "updated_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
 );
@@ -105,5 +104,8 @@ ALTER TABLE "subcription"
 
 ALTER TABLE "subcription"
    ADD COLUMN "account_id" INT NOT NULL REFERENCES "account" (id);
+
+ALTER TABLE "transaction_category"
+   ADD COLUMN "user_id" INT NOT NULL REFERENCES "user" (id);
 
 COMMIT;

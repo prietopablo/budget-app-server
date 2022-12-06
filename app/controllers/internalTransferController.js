@@ -7,6 +7,7 @@ const internalTransferController = {
          await internalTransferDatamapper
          .insert(
                req.body.amount,
+               req.params.userId,
                req.body.accountFromId,
                req.body.accountToId,
             );
@@ -20,7 +21,7 @@ const internalTransferController = {
    async getAllByUserId(req, res) {
       try {
          const internalTransferList = await internalTransferDatamapper
-                                       .findAllByUserId(req.params.UserId);
+                                       .findAllByUserId(req.params.userId);
 
          return res.status(200).json({ internalTransferList });
       } catch (err) {
@@ -30,7 +31,6 @@ const internalTransferController = {
 
    async getOne(req, res) {
       try {
-         console.log(req.params.internalTransferId);
          const internalTransfer = await internalTransferDatamapper
                               .findByPK(req.params.internalTransferId);
 
@@ -71,7 +71,7 @@ const internalTransferController = {
             return res.status(404).json({ errorMessage: 'internal transfer not found' });
           }
 
-          await internalTransferDatamapper.delete(req.params.transactionId);
+          await internalTransferDatamapper.delete(req.params.internalTransferId);
           return res.status(200).json({ message: 'internal transfer deleted' });
       } catch (err) {
           return res.json({ errorType: err.message });

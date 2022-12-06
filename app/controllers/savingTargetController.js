@@ -62,7 +62,7 @@ const savingTargetController = {
                               .findByPK(req.params.savingTargetId);
 
          if (!savingTarget) {
-            return res.status(404).json({ errorMessage: 'internal transfer not found' });
+            return res.status(404).json({ errorMessage: 'saving target not found' });
          }
 
          const updatedSavingTarget = await savingTargetDatamapper
@@ -80,11 +80,11 @@ const savingTargetController = {
                               .findByPK(req.params.savingTargetId);
 
           if (!savingTarget) {
-            return res.status(404).json({ errorMessage: 'internal transfer not found' });
+            return res.status(404).json({ errorMessage: 'saving target not found' });
           }
 
           await savingTargetDatamapper.delete(req.params.savingTargetId);
-          return res.status(200).json({ message: 'internal transfer deleted' });
+          return res.status(200).json({ message: 'saving target not found' });
       } catch (err) {
           return res.json({ errorType: err.message });
       }
