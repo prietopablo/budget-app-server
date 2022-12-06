@@ -22,7 +22,7 @@ const subscriptionController = {
    async getAllByUserId(req, res) {
       try {
          const subscriptionList = await subscriptionDatamapper
-                                      .findAllByUserId(req.params.UserId);
+                                      .findAllByUserId(req.params.userId);
 
          return res.status(200).json({ subscriptionList });
       } catch (err) {
@@ -33,7 +33,7 @@ const subscriptionController = {
    async getAllByAccountId(req, res) {
       try {
          const subscriptionList = await subscriptionDatamapper
-                                      .findAllByAccountId(req.params.AccountId);
+                                      .findAllByAccountId(req.params.accountId);
 
          return res.status(200).json({ subscriptionList });
       } catch (err) {
@@ -43,8 +43,9 @@ const subscriptionController = {
 
    async getOne(req, res) {
       try {
+         console.log(req.params.subscriptionId);
          const subscription = await subscriptionDatamapper
-                              .findByPK(req.params.savingTargetId);
+                              .findByPK(req.params.subscriptionId);
 
          if (!subscription) {
             return res.status(404).json({ errorMessage: 'subscription not found' });
@@ -59,14 +60,14 @@ const subscriptionController = {
    async update(req, res) {
       try {
          const subscription = await subscriptionDatamapper
-                              .findByPK(req.params.savingTargetId);
+                              .findByPK(req.params.subscriptionId);
 
          if (!subscription) {
             return res.status(404).json({ errorMessage: 'subscription not found' });
          }
 
          const updatedSubscription = await subscriptionDatamapper
-                                     .update(req.body, req.params.savingTargetId);
+                                     .update(req.body, req.params.subscriptionId);
 
          return res.status(200).json(updatedSubscription);
       } catch (err) {
@@ -77,13 +78,13 @@ const subscriptionController = {
    async delete(req, res) {
       try {
          const subscription = await subscriptionDatamapper
-                              .findByPK(req.params.savingTargetId);
+                              .findByPK(req.params.subscriptionId);
 
           if (!subscription) {
             return res.status(404).json({ errorMessage: 'subscription not found' });
           }
 
-          await subscriptionDatamapper.delete(req.params.savingTargetId);
+          await subscriptionDatamapper.delete(req.params.subscriptionId);
           return res.status(200).json({ message: 'subscription deleted' });
       } catch (err) {
           return res.json({ errorType: err.message });

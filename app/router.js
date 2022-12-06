@@ -5,6 +5,7 @@ const transactionController = require('./controllers/transactionController');
 const internalTransferController = require('./controllers/internalTransferController');
 const savingTargetController = require('./controllers/savingTargetController');
 const budgetTypeController = require('./controllers/budgetTypeController');
+const subscriptionController = require('./controllers/subscriptionController');
 
 const router = express.Router();
 
@@ -99,17 +100,17 @@ router
 // Subscription CRUD
 router
    .route('/user/:userId/subscriptions')
-   .get(budgetTypeController.getAllByUserId);
+   .get(subscriptionController.getAllByUserId);
 
-// router
-//    .route('/user/:userId/account/:accountId/subscriptions')
-//    .get(budgetTypeController.getAllByAccountsqId)
-//    .post(budgetTypeController.create);
+router
+   .route('/user/:userId/account/:accountId/subscriptions')
+   .get(subscriptionController.getAllByAccountId)
+   .post(subscriptionController.create);
 
-// router
-//    .route('/user/:userId/subscription/:subscriptionId')
-//    .get(budgetTypeController.getOne)
-//    .patch(budgetTypeController.update)
-//    .delete(budgetTypeController.delete);
+router
+   .route('/user/:userId/subscription/:subscriptionId')
+   .get(subscriptionController.getOne)
+   .patch(subscriptionController.update)
+   .delete(subscriptionController.delete);
 
 module.exports = router;
