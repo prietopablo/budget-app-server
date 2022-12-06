@@ -3,7 +3,7 @@ const client = require('./client');
 const transactionCategoryDatamapper = {
 
    async insert(name, description, userId) {
-      const result = await client.query('INSERT INTO "transaction_category" (name, description, user_id) VALUES ($1, $2, $3, $4)', [name, description, userId]);
+      const result = await client.query('INSERT INTO "transaction_category" (name, description, user_id) VALUES ($1, $2, $3)', [name, description, userId]);
 
       return result.rows[0];
    },

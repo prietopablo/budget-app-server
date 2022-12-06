@@ -6,6 +6,7 @@ const internalTransferController = require('./controllers/internalTransferContro
 const savingTargetController = require('./controllers/savingTargetController');
 const budgetTypeController = require('./controllers/budgetTypeController');
 const subscriptionController = require('./controllers/subscriptionController');
+const transactionCategoryController = require('./controllers/transactionCategoryController');
 
 const router = express.Router();
 
@@ -112,5 +113,17 @@ router
    .get(subscriptionController.getOne)
    .patch(subscriptionController.update)
    .delete(subscriptionController.delete);
+
+// Transaction category CRUD
+router
+   .route('/user/:userId/transactionCategories')
+   .get(transactionCategoryController.getAllByUserId)
+   .post(transactionCategoryController.create);
+
+router
+   .route('/user/:userId/transactionCategory/:transactionCategoryId')
+   .get(transactionCategoryController.getOne)
+   .patch(transactionCategoryController.update)
+   .delete(transactionCategoryController.delete);
 
 module.exports = router;

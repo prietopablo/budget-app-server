@@ -43,7 +43,6 @@ const subscriptionController = {
 
    async getOne(req, res) {
       try {
-         console.log(req.params.subscriptionId);
          const subscription = await subscriptionDatamapper
                               .findByPK(req.params.subscriptionId);
 
