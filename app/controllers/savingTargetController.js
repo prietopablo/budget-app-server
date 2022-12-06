@@ -77,7 +77,6 @@ const savingTargetController = {
 
    async delete(req, res) {
       try {
-         console.log('req.params.savingTargetId', req.params.savingTargetId);
          const savingTarget = await savingTargetDatamapper
                               .findByPK(req.params.savingTargetId);
 

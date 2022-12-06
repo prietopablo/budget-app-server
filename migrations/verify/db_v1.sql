@@ -2,6 +2,6 @@
 
 BEGIN;
 
-SELECT * FROM "user", "account", "transaction", "internal_transfer", "saving_target", "budget_type", "subcription", "transaction_category" WHERE false;
+SELECT * FROM "user", "account", "transaction", "internal_transfer", "saving_target", "budget_type", "subscription", "transaction_category" WHERE false;
 
 ROLLBACK;

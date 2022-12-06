@@ -20,7 +20,7 @@ const savingTargetController = {
 
    async getAllByUserId(req, res) {
       try {
-         const budgetTypeList = await budgetTypeDatamapper.findAllByUserId(req.params.UserId);
+         const budgetTypeList = await budgetTypeDatamapper.findAllByUserId(req.params.userId);
 
          return res.status(200).json({ budgetTypeList });
       } catch (err) {
@@ -51,7 +51,7 @@ const savingTargetController = {
          }
 
          const updatedbudgetType = await budgetTypeDatamapper
-                                   .update(req.body, req.params.savingTargetId);
+                                   .update(req.body, req.params.budgetTypeId);
 
          return res.status(200).json(updatedbudgetType);
       } catch (err) {
