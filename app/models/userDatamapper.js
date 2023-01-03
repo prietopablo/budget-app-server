@@ -10,7 +10,17 @@ const userDatamapper = {
       }
 
       return result.rows[0];
-  },
+   },
+
+   async findAll() {
+      const result = await client.query('SELECT * FROM "user"');
+
+      if (result.rowCount === 0) {
+         return null;
+      }
+
+      return result.rows;
+   },
 
    async findByEmail(email) {
       const result = await client.query('SELECT * FROM "user" WHERE "email" = $1', [email]);
@@ -28,9 +38,9 @@ const userDatamapper = {
       const result = await client.query('DELETE FROM "user" WHERE "id" = $1', [userId]);
 
       return !!result.rowCount;
-  },
+   },
 
-  async update(inputData, userId) {
+   async update(inputData, userId) {
       const fields = Object.keys(inputData).map((prop, index) => `"${prop}" = $${index + 1}`);
       const values = Object.values(inputData);
 

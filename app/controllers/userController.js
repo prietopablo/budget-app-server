@@ -9,7 +9,7 @@ const userController = {
          const user = await userDatamapper.findByEmail(req.body.email);
 
          if (user) {
-            return res.status(400).json({ errorMessage: 'User already exists with this email' });
+            return res.status(409).json({ errorMessage: 'a user already exists with this email' });
          }
 
          const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -31,6 +31,20 @@ const userController = {
          }
 
             return res.status(200).json(user);
+      } catch (err) {
+         return res.json({ errorType: err.message });
+      }
+   },
+
+   async getAll(_, res) {
+      try {
+         const users = await userDatamapper.findAll();
+
+         if (!users) {
+            return res.status(404).json({ errorMessage: 'users not found' });
+         }
+
+            return res.status(200).json(users);
       } catch (err) {
          return res.json({ errorType: err.message });
       }

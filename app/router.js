@@ -7,6 +7,7 @@ const savingTargetController = require('./controllers/savingTargetController');
 const budgetTypeController = require('./controllers/budgetTypeController');
 const subscriptionController = require('./controllers/subscriptionController');
 const transactionCategoryController = require('./controllers/transactionCategoryController');
+const authController = require('./controllers/authController');
 
 const router = express.Router();
 
@@ -20,12 +21,14 @@ router.get('/', (_, res) => {
 router.post('/signup', userController.create);
 
 //
-router.post('/login', () => {
-
-});
+router.post('/login', authController.login);
 
 // registered Visitor
 // User CRUD
+router
+   .route('/users')
+   .get(userController.getAll);
+
 router
    .route('/user/:userId')
    .get(userController.getOne)
