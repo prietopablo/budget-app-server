@@ -20,7 +20,7 @@ router.get('/', (_, res) => {
 // Sign up
 router.post('/signup', userController.create);
 
-//
+// Sign in
 router.post('/login', authController.login);
 
 // registered Visitor

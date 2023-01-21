@@ -39,7 +39,7 @@ const authController = {
          res.cookie('jwt', refreshToken, {
                httpOnly: true, secure: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000,
          });
-         return res.json({ role: user.role, accesToken });
+         return res.json({ role: user.role, accessToken });
       }
          return res.sendStatus(401);
    },
