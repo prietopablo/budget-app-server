@@ -3,3 +3,4 @@
 %uri=https://github.com/PrietoPablo/budget-app-server
 
 db_v1 2022-10-31T11:10:46Z Pablo Prieto <priet@DESKTOP-LQGK7CU> # basic pg db with user, account, ledger, budget category, saving category and subscription tracker
+refresh-token 2023-01-21T14:03:19Z Pablo Prieto <priet@DESKTOP-LQGK7CU> # add a new field on the user table to store refresh tokens

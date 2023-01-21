@@ -19,7 +19,7 @@ const authController = {
       const passwordVerified = await bcrypt.compare(password, user.password);
 
       if (user && passwordVerified) {
-         const accesToken = jwt.sign(
+         const accessToken = jwt.sign(
             {
                UserInfo: {
                   email: user.email,
@@ -36,12 +36,15 @@ const authController = {
             { expiresIn: '1d' },
          );
 
+         const updatedUser = await userDatamapper.update({ refresh_token: refreshToken}, user.id);
+         console.log(updatedUser);
+
          res.cookie('jwt', refreshToken, {
                httpOnly: true, secure: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000,
          });
          return res.json({ role: user.role, accessToken });
       }
-         return res.sendStatus(401);
+      return res.sendStatus(401);
    },
 };
 
